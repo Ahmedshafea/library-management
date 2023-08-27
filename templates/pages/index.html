@@ -64,7 +64,7 @@
   
                   <div class="d-flex flex-row justify-content-end">
                     <span class="mr-2">
-                      <i class="fas fa-square text-primary"></i> الاربح من بيع الكتب
+                      <i class="fas fa-square text-primary"></i> الارباح من بيع الكتب
                       <p id="soldtotals"></p>     
                     </span>
                     <span>
@@ -117,25 +117,19 @@
           <div class="row justify-content-center mb-3">
             <div class="col-4 ">
               <ul class="nav">
-            
+            {%for cat in categories%}
                 <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">تاريخ</a>
+                  <a id="" class="nav-link bg-primary" href="#"> {{ cat.cat_name }} </a>
                 </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">فن</a>
-                </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">ثقافة</a>
-                </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">رومانسية</a>
-                </li>
+                {% endfor %}
+
               </ul>
             </div>
           </div>
           <!-- books -->
 
           <div class="row">
+            {%for book in books%}
 
           <!-- الكتب -->
               <div id="" class="col-md-4">
@@ -148,41 +142,49 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#">Delete</a>
                 <!-- Button trigger modal -->
                   </div>
                 </div>
 
                 <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
+                  <h3 class="widget-user-username">{{book.book_name}}</h3>
+                  <h5 class="widget-user-desc">{{book.author_name}}</h5>
                 </div>
                 <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
+                  {% if book.author_avatar %}
+                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="{{book.author_avatar.url}}" alt="User Avatar">
+                  {% endif %}
+
                 </div>
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-sm-4 border-right">
                       <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
+                        <h5 class="description-header">{{book.page_count}}</h5>
+                        <span class="description-text">page</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
                         <!-- /.col -->
                     <div class="col-sm-4 border-right">
                       <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
+                      {% if book.sold_price %}
+                        <h5 class="description-header">${{book.sold_price}}</h5>
+                        <span class="description-text">Sold Price</span>
+                      {% else %}
+                      <h5 class="description-header">${{book.borrowing_cost}}</h5>
+                        <span class="description-text">Borrowing value for {{book.borrowing_period}}</span>
+                      {%endif%}
                       </div>
                       <!-- /.description-block -->
                     </div>
                         <!-- /.col -->
                     <div class="col-sm-4">
                       <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
+                        <h5 class="description-header text-dark">{{book.status}}</h5>
+                        <span class="description-text">Status</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -194,463 +196,7 @@
                   <!-- /.widget-user -->
               </div>
           <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->                
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب -->                
-          <!-- الكتب -->
-              <div id="" class="col-md-4">
-                  <!-- Widget: user widget style 1 -->
-                <div id="" class="card card-widget widget-user ">
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-                <!-- قائمة منسدلة -->
-                <div style="position: absolute;" class="btn-group">   
-                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">تعديل</a>
-                    <a class="dropdown-item" href="#">حذف</a>
-                <!-- Button trigger modal -->
-                  </div>
-                </div>
-
-                <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username">عنوان الكتاب</h3>
-                  <h5 class="widget-user-desc">اسم الؤلف</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="dist/img/user2-160x160.jpg" alt="User Avatar">
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">500</h5>
-                        <span class="description-text">صفحة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">$350</h5>
-                        <span class="description-text">السعر</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header text-dark">متاح</h5>
-                        <span class="description-text">الحالة</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                        <!-- /.col -->
-                  </div>
-                      <!-- /.row -->
-                </div>
-                </div>
-                  <!-- /.widget-user -->
-              </div>
-          <!-- نهاية الكتاب --> 
-
+{% endfor %}
               <div class="row">
                 <div class="col text-center">
                   <!--اضف صورة هنا في حالة عدم وجود كتب-->   
