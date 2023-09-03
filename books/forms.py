@@ -25,6 +25,7 @@ class BookForm(forms.ModelForm):
                 'sold_price',
                 'borrowing_cost',
                 'borrowing_period',
+                'total_borrowing',
                 'status',
                 'categories',
                 ]
@@ -35,8 +36,9 @@ class BookForm(forms.ModelForm):
                 'author_avatar': forms.FileInput(attrs={'class':'form-control'}),
                 'page_count': forms.NumberInput(attrs={'class':'form-control'}),
                 'sold_price': forms.NumberInput(attrs={'class':'form-control'}),
-                'borrowing_cost': forms.NumberInput(attrs={'class':'form-control'}),
-                'borrowing_period': forms.Select(attrs={'class':'form-control'}),
+                'borrowing_cost': forms.NumberInput(attrs={'class':'form-control','id':'borrowing_cost'}),
+                'borrowing_period': forms.Select(attrs={'class':'form-control','id':'borrowing_period'}),
+                'total_borrowing': forms.NumberInput(attrs={'class':'form-control','id':'total_borrowing'}),
                 'status': forms.Select(attrs={'class':'form-control'}),
                 'categories': forms.Select(attrs={'class':'form-control'}),
 

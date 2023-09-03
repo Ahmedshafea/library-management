@@ -40,11 +40,7 @@ x
 
 
 <!-- REQUIRED SCRIPTS -->
-
-
-
 <script src="{% static 'plugins/jquery/jquery.js'%}"></script>
-
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
 <!-- Bootstrap -->
@@ -52,13 +48,44 @@ x
 <!-- AdminLTE -->
 <script src="{% static 'dist/js/adminlte.js'%}"></script>
 <!-- OPTIONAL SCRIPTS -->
-
 <script src="{% static 'plugins/chart.js/Chart.min.js'%}"></script>
-
 <script src="{% static 'dist/js/demo.js'%}"></script>
 <!--<script src="dist/js/pages/dashboard3.js'"></script>
 -->
 <script>
+$(document).ready(function() {
+ 
+  // Function to convert text to numeric values
+  function convertToNumeric(value) {
+        switch (value) {
+            case 'Day':
+                return 1;
+            case 'Week':
+                return 7;
+            case 'Month':
+                return 30;
+            default:
+                return 0; // Default to 0 if the input is not recognized
+        }
+    }
+
+    // Keyup event handler
+    $('#borrowing_period').change(function() {
+        var periodValue = $('#borrowing_period').val();
+        var costValue = $('#borrowing_cost').val();
+        
+        // Convert the period value to numeric using the convertToNumeric function
+        var numericPeriod = convertToNumeric(periodValue);
+        
+        // Calculate the total borrowing
+        var totalBorrowing = numericPeriod * costValue;
+        
+        // Set the value in the total_borrowing input field
+        $('#total_borrowing').val(totalBorrowing);
+    });
+});
+
+
 
   $('#catinput').hide()
   $('#addcat').click(function(){
@@ -68,6 +95,22 @@ x
   $('#backcat').click(function(){
     $('#catinput').hide()
   });
+
+  {%for book in books%}
+
+  $(".cat{{book.categories.id}}").click(function(){
+  $(".bookhide").hide()
+  $(".book{{book.categories.id}}").show()
+});
+
+  $(".status{{book.status}}").click(function(){
+  $(".bookhide").hide()
+  $(".book{{book.status}}").show()
+
+  });
+
+
+  {%endfor%}
 </script>
 <script>
   $(document).ready(function(){
@@ -115,14 +158,14 @@ $(function () {
           backgroundColor: '#007bff',
           borderColor    : '#007bff',
           data           : [ 
-               '50',
+               '{{total_price_sold}}',
           ]
         },
         {
           backgroundColor: '#ced4da',
           borderColor    : '#ced4da',
           data           : [ 
-                '30',
+                '{{total_cost_borrowed}}',
           ]
         }
       ]
@@ -182,7 +225,7 @@ $(function () {
     type: 'pie',
     data: {
       datasets: [{
-        data: ['35','25','40'],
+        data: ['{{bookavailable}}','{{booksold}}','{{bookborrowed}}'],
         backgroundColor :["#27c100","#f3545d","#fdaf4b"],
         borderWidth: 10,
         

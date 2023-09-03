@@ -29,6 +29,7 @@ class Books(models.Model):
     sold_price= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     borrowing_cost= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     borrowing_period= models.CharField(max_length=9, choices=period_options,null=True,blank=True)
+    total_borrowing= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     status= models.CharField(max_length=9, choices=status_options)
     categories= models.ForeignKey(Categories, on_delete=models.CASCADE)
 
