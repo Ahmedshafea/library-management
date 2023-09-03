@@ -15,6 +15,11 @@ class Books(models.Model):
         ("Borrowed", "Borrowed"),
         ("Available", "Available"),
     ]
+    period_options = [
+        ("Day", "Day"),
+        ("Week", "Week"),
+        ("Month", "Month"),
+    ]
 
     book_name = models.CharField(max_length=50)
     author_name = models.CharField(max_length=50)
@@ -23,7 +28,7 @@ class Books(models.Model):
     page_count= models.PositiveIntegerField(null=True,blank=True)
     sold_price= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     borrowing_cost= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
-    borrowing_period= models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
+    borrowing_period= models.CharField(max_length=9, choices=period_options,null=True,blank=True)
     status= models.CharField(max_length=9, choices=status_options)
     categories= models.ForeignKey(Categories, on_delete=models.CASCADE)
 

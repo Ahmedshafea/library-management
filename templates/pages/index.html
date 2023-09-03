@@ -1,4 +1,6 @@
+
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -87,17 +89,14 @@
           
           <div id="bookform" class="card card-primary collapse">
             <div class="card-header">
-              <h3 class="card-title">اضافة كتاب</h3>
+              <h3 class="card-title"Aadd New Book</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form method="POST" enctype="multipart/form-data"  > 
+              {% csrf_token %}
               <div class="card-body"> 
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
+              {{form}}
                 <small id='totalrente' class="form-text text-muted"></small>
               </div>
               <!-- /.card-body -->
@@ -117,7 +116,7 @@
           <div class="row justify-content-center mb-3">
             <div class="col-4 ">
               <ul class="nav">
-            {%for cat in categories%}
+            {%for cat in categories|slice:"5" %}
                 <li class="nav-item ">
                   <a id="" class="nav-link bg-primary" href="#"> {{ cat.cat_name }} </a>
                 </li>
@@ -142,28 +141,37 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Delete</a>
+                    <a class="dropdown-item" href="{% url 'update' book.id %}">Edit</a>
+                    <a class="dropdown-item" href="{% url 'delete' book.id %}">Delete</a>
                 <!-- Button trigger modal -->
                   </div>
                 </div>
-
-                <div class="widget-user-header bg-info">
+                {% if book.book_photo %}
+                <div style=" background: url({{book.book_photo.url}}); background-size: cover " class="widget-user-header bg-info">
                   <h3 class="widget-user-username">{{book.book_name}}</h3>
                   <h5 class="widget-user-desc">{{book.author_name}}</h5>
                 </div>
+                {% else %}
+                <div  class="widget-user-header bg-info">
+                  <h3 class="widget-user-username">{{book.book_name}}</h3>
+                  <h5 class="widget-user-desc">{{book.author_name}}</h5>
+                </div>
+                {% endif %}
+
                 <div class="widget-user-image">
                   {% if book.author_avatar %}
                   <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="{{book.author_avatar.url}}" alt="User Avatar">
+                  {% else %}
+                  <img style="width:100px; height: 100px;" class="img-circle elevation-2" src="{%static 'dist/img/avtar.jpg'%}" alt="User Avatar">
                   {% endif %}
-
+                   
                 </div>
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-sm-4 border-right">
                       <div class="description-block">
                         <h5 class="description-header">{{book.page_count}}</h5>
-                        <span class="description-text">page</span>
+                        <span class=""">Page</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -172,10 +180,10 @@
                       <div class="description-block">
                       {% if book.sold_price %}
                         <h5 class="description-header">${{book.sold_price}}</h5>
-                        <span class="description-text">Sold Price</span>
+                        <span class="">Sold Price</span>
                       {% else %}
                       <h5 class="description-header">${{book.borrowing_cost}}</h5>
-                        <span class="description-text">Borrowing value for {{book.borrowing_period}}</span>
+                        <span class="">For a {{book.borrowing_period}} </span>
                       {%endif%}
                       </div>
                       <!-- /.description-block -->
@@ -183,9 +191,21 @@
                         <!-- /.col -->
                     <div class="col-sm-4">
                       <div class="description-block">
-                        <h5 class="description-header text-dark">{{book.status}}</h5>
-                        <span class="description-text">Status</span>
-                      </div>
+                        {% if book.status == 'Sold' %}
+                        <h5 class="description-header text-danger">{{book.status}}</h5>
+                        <span class="">Status</span>
+                      {% elif book.status == 'Borrowed' %}
+                      <h5 class="description-header text-warning">{{book.status}}</h5>
+                      <span class="">Status</span>
+                      {% else %}
+                      <h5 class="description-header text-info">{{book.status}}</h5>
+                      <span class="">Status</span>
+                      {%endif%}
+
+
+                    </div>
+
+
                       <!-- /.description-block -->
                     </div>
                         <!-- /.col -->
